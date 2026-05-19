@@ -1,0 +1,939 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #1a0f0a 0%, #2d1810 50%, #1a0f0a 100%);
+    color: #d4a574;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#game-header {
+    background: linear-gradient(180deg, #3d2817 0%, #2a1a0f 100%);
+    padding: 15px 30px;
+    border-bottom: 4px solid #8b6914;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 2px 10px rgba(139, 105, 20, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#game-header h1 {
+    font-size: 28px;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px #000, 0 0 20px rgba(255, 215, 0, 0.5);
+    letter-spacing: 3px;
+}
+
+.stats {
+    display: flex;
+    gap: 30px;
+    font-size: 16px;
+}
+
+.stats span {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 16px;
+    border: 2px solid #8b6914;
+    border-radius: 4px;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+#main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+#resource-panel {
+    width: 280px;
+    background: linear-gradient(180deg, #3d2817 0%, #2a1a0f 100%);
+    border-right: 4px solid #8b6914;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#resource-panel h3 {
+    color: #ffd700;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-shadow: 2px 2px 4px #000;
+    border-bottom: 2px solid #8b6914;
+    padding-bottom: 10px;
+}
+
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.resource-item {
+    background: linear-gradient(180deg, #4a3525 0%, #3d2817 100%);
+    border: 2px solid #8b6914;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.resource-item:hover {
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.resource-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.resource-name {
+    font-size: 14px;
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.resource-item > div:first-child {
+    display: flex;
+    align-items: center;
+}
+
+.resource-info {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.resource-amount {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.resource-max {
+    font-size: 14px;
+    color: #888;
+}
+
+.resource-rate {
+    text-align: center;
+    font-size: 14px;
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.resource-rate.negative {
+    color: #ff4444;
+}
+
+.production-summary {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #8b6914;
+}
+
+.production-summary h4 {
+    color: #ffd700;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #4a3525;
+}
+
+.stat-row span:last-child {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.production-effect {
+    position: absolute;
+    font-size: 20px;
+    color: #ffd700;
+    font-weight: bold;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ff8c00;
+    animation: production-float 1.2s ease-out forwards;
+    pointer-events: none;
+    z-index: 100;
+    white-space: nowrap;
+}
+
+@keyframes production-float {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(1);
+    }
+}
+
+.machine {
+    position: relative;
+}
+
+#workshop {
+    flex: 1;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 100px,
+            rgba(139, 105, 20, 0.1) 100px,
+            rgba(139, 105, 20, 0.1) 102px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 100px,
+            rgba(139, 105, 20, 0.1) 100px,
+            rgba(139, 105, 20, 0.1) 102px
+        ),
+        linear-gradient(180deg, #4a3525 0%, #3d2817 50%, #2a1a0f 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.workshop-floor {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 40px;
+    padding: 40px;
+    height: 100%;
+    position: relative;
+}
+
+.workshop-floor::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #5c4033 0px,
+            #5c4033 120px,
+            #4a3525 120px,
+            #4a3525 240px
+        );
+    border-top: 4px solid #8b6914;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.machine, .furnace {
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.machine:hover, .furnace:hover {
+    transform: translateY(-5px);
+}
+
+.machine-body, .furnace-body {
+    position: relative;
+    width: 180px;
+    height: 200px;
+}
+
+.boiler {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 100px;
+    background: linear-gradient(180deg, #6b5344 0%, #4a3525 50%, #3d2817 100%);
+    border-radius: 10px 10px 5px 5px;
+    border: 3px solid #8b6914;
+    box-shadow: inset 0 5px 15px rgba(255, 215, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.boiler::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 20px;
+    background: linear-gradient(180deg, #8b6914 0%, #6b5344 100%);
+    border-radius: 5px;
+}
+
+.piston {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 60px;
+    background: linear-gradient(90deg, #8b8b8b 0%, #b8b8b8 50%, #8b8b8b 100%);
+    border: 2px solid #6b6b6b;
+    border-radius: 3px;
+}
+
+.flywheel {
+    position: absolute;
+    bottom: 100px;
+    right: 10px;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, #8b6914 0%, #6b5344 50%, #4a3525 100%);
+    border-radius: 50%;
+    border: 4px solid #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.flywheel::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: #ffd700;
+    border-radius: 50%;
+}
+
+.steam-pipe {
+    position: absolute;
+    bottom: 90px;
+    left: 20px;
+    width: 15px;
+    height: 80px;
+    background: linear-gradient(90deg, #6b5344 0%, #8b6914 50%, #6b5344 100%);
+    border: 2px solid #4a3525;
+    border-radius: 3px;
+}
+
+.steam-pipe::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    width: 25px;
+    height: 15px;
+    background: #8b6914;
+    border-radius: 3px;
+}
+
+.gears {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 100px;
+    height: 100px;
+}
+
+.gear {
+    position: absolute;
+    background: radial-gradient(circle, #c0a060 0%, #8b6914 100%);
+    border-radius: 50%;
+    border: 3px solid #ffd700;
+}
+
+.gear::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    background: #4a3525;
+    border-radius: 50%;
+}
+
+.gear-large {
+    width: 50px;
+    height: 50px;
+    top: 0;
+    left: 0;
+}
+
+.gear-medium {
+    width: 35px;
+    height: 35px;
+    top: 30px;
+    left: 35px;
+}
+
+.gear-small {
+    width: 25px;
+    height: 25px;
+    top: 10px;
+    left: 55px;
+}
+
+.press-frame {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 150px;
+    background: linear-gradient(180deg, #6b5344 0%, #4a3525 100%);
+    border: 4px solid #8b6914;
+    border-radius: 5px;
+}
+
+.press-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 20px;
+    background: #8b6914;
+}
+
+.press-plate {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 15px;
+    background: linear-gradient(180deg, #8b8b8b 0%, #6b6b6b 100%);
+    border: 2px solid #4a4a4a;
+}
+
+.press-lever {
+    position: absolute;
+    bottom: 120px;
+    right: 30px;
+    width: 8px;
+    height: 60px;
+    background: linear-gradient(90deg, #8b6914 0%, #6b5344 100%);
+    border-radius: 4px;
+    transform-origin: bottom center;
+}
+
+.press-lever::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: #ffd700;
+    border-radius: 50%;
+}
+
+.furnace-body {
+    width: 160px;
+    height: 220px;
+}
+
+.fire-box {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 120px;
+    background: linear-gradient(180deg, #4a3525 0%, #2a1a0f 100%);
+    border: 4px solid #8b6914;
+    border-radius: 5px;
+}
+
+.fire-box::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 60px;
+    background: radial-gradient(ellipse at center, #ff4500 0%, #ff6600 30%, #ff8c00 60%, transparent 100%);
+    opacity: 0;
+    animation: none;
+}
+
+.furnace.active .fire-box::before {
+    opacity: 1;
+    animation: fire-flicker 0.5s infinite alternate;
+}
+
+.chimney {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 80px;
+    background: linear-gradient(90deg, #4a3525 0%, #6b5344 50%, #4a3525 100%);
+    border: 3px solid #8b6914;
+    border-radius: 5px 5px 0 0;
+}
+
+.chimney::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -10px;
+    width: 70px;
+    height: 20px;
+    background: #8b6914;
+    border-radius: 3px;
+}
+
+.coal-slot {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 40px;
+    background: #1a0f0a;
+    border: 3px solid #6b5344;
+    border-radius: 3px;
+}
+
+.machine-label, .furnace .machine-label {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ffd700;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.machine-status {
+    text-align: center;
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+.machine.active .machine-status {
+    color: #00ff00;
+}
+
+.furnace.active .machine-status {
+    color: #ff4500;
+}
+
+.furnace.active .furnace-body {
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
+}
+
+.machine.active .machine-body {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.crafting-station {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(180deg, #4a3525 0%, #3d2817 100%);
+    border: 3px solid #8b6914;
+    border-radius: 8px;
+}
+
+.crafting-station h3 {
+    color: #ffd700;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.recipe-item {
+    background: linear-gradient(180deg, #5c4033 0%, #4a3525 100%);
+    border: 2px solid #8b6914;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.recipe-item:hover {
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.recipe-item.crafting {
+    border-color: #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+}
+
+.recipe-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.recipe-icon {
+    font-size: 28px;
+}
+
+.recipe-name {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.recipe-description {
+    color: #a0a0a0;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.recipe-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.ingredient {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.ingredient.sufficient {
+    color: #00ff00;
+}
+
+.ingredient.insufficient {
+    color: #ff4444;
+}
+
+.ingredient-icon {
+    font-size: 14px;
+}
+
+.recipe-output {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #ffd700;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.recipe-output-icon {
+    font-size: 16px;
+}
+
+.recipe-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recipe-time {
+    color: #888;
+    font-size: 11px;
+}
+
+.craft-btn {
+    background: linear-gradient(180deg, #8b6914 0%, #6b5344 50%, #4a3525 100%);
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-family: 'Georgia', serif;
+    cursor: pointer;
+    border-radius: 4px;
+    text-shadow: 1px 1px 2px #000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), inset 0 1px 3px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.craft-btn:hover:not(:disabled) {
+    background: linear-gradient(180deg, #a07d1a 0%, #8b6914 50%, #6b5344 100%);
+    transform: translateY(-1px);
+}
+
+.craft-btn:disabled {
+    background: #444;
+    border-color: #666;
+    color: #888;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.craft-progress {
+    width: 100%;
+    height: 8px;
+    background: #2a1a0f;
+    border-radius: 4px;
+    margin-top: 10px;
+    overflow: hidden;
+    border: 1px solid #5a4030;
+    display: block !important;
+}
+
+.craft-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff8c00 0%, #ffd700 50%, #ff8c00 100%);
+    border-radius: 3px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px rgba(255, 140, 0, 0.6);
+    width: 0%;
+}
+
+.craft-btn {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.craft-btn:hover:not(:disabled) {
+    background: linear-gradient(180deg, #ffd700 0%, #ff8c00 50%, #cc7000 100%);
+    color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.4);
+}
+
+.craft-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.craft-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #444 !important;
+    border-color: #666 !important;
+}
+
+.craft-effect {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: #ffd700;
+    text-shadow: 0 0 30px #ffd700, 0 0 60px #ff8c00;
+    animation: craft-success 1.5s ease-out forwards;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+@keyframes craft-success {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    30% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.5) translateY(-50px);
+    }
+}
+
+#control-panel {
+    background: linear-gradient(0deg, #3d2817 0%, #2a1a0f 100%);
+    padding: 20px;
+    border-top: 4px solid #8b6914;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+#control-panel button {
+    background: linear-gradient(180deg, #8b6914 0%, #6b5344 50%, #4a3525 100%);
+    color: #ffd700;
+    border: 3px solid #ffd700;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-family: 'Georgia', serif;
+    cursor: pointer;
+    border-radius: 5px;
+    text-shadow: 1px 1px 2px #000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+#control-panel button:hover {
+    background: linear-gradient(180deg, #a07d1a 0%, #8b6914 50%, #6b5344 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6), inset 0 2px 5px rgba(255, 215, 0, 0.5);
+}
+
+#control-panel button:active {
+    transform: translateY(0);
+}
+
+.steam-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.steam-particle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: steam-rise 3s ease-out infinite;
+}
+
+@keyframes steam-rise {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-200px) scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes fire-flicker {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+@keyframes piston-move {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+}
+
+@keyframes flywheel-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gear-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gear-rotate-reverse {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes idle-bob {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.machine.idle .machine-body {
+    animation: idle-bob 2s ease-in-out infinite;
+}
+
+.machine.active .piston {
+    animation: piston-move 0.5s ease-in-out infinite;
+}
+
+.machine.active .flywheel {
+    animation: flywheel-spin 1s linear infinite;
+}
+
+.machine.active .gear-large {
+    animation: gear-rotate 2s linear infinite;
+}
+
+.machine.active .gear-medium {
+    animation: gear-rotate-reverse 1.5s linear infinite;
+}
+
+.machine.active .gear-small {
+    animation: gear-rotate 1s linear infinite;
+}
+
+.machine.active .press-plate {
+    animation: press-move 1.5s ease-in-out infinite;
+}
+
+.machine.active .press-lever {
+    animation: lever-move 1.5s ease-in-out infinite;
+}
+
+@keyframes press-move {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(40px);
+    }
+}
+
+@keyframes lever-move {
+    0%, 100% {
+        transform: rotate(-15deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+}

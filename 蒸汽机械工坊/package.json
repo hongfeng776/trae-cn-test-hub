@@ -1,0 +1,17 @@
+{
+  "name": "steampunk-workshop",
+  "version": "1.0.0",
+  "description": "蒸汽朋克风格工坊游戏",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": [
+    "steampunk",
+    "game",
+    "workshop"
+  ],
+  "author": "",
+  "license": "MIT"
+}
